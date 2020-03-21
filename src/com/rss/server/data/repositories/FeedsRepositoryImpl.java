@@ -1,7 +1,7 @@
-package com.rss.data.repositories;
+package com.rss.server.data.repositories;
 
-import com.rss.domain.FeedsRepository;
-import com.rss.domain.models.Feed;
+import com.rss.server.domain.FeedsRepository;
+import com.rss.shared.Feed;
 
 import java.util.List;
 

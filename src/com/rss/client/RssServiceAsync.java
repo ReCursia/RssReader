@@ -1,7 +1,7 @@
 package com.rss.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.rss.domain.models.Feed;
+import com.rss.shared.Feed;
 
 import java.util.List;
 

@@ -2,9 +2,9 @@ package com.rss.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.rss.client.RssService;
-import com.rss.data.repositories.FeedsRepositoryImpl;
-import com.rss.domain.FeedsRepository;
-import com.rss.domain.models.Feed;
+import com.rss.server.data.repositories.FeedsRepositoryImpl;
+import com.rss.server.domain.FeedsRepository;
+import com.rss.shared.Feed;
 
 import java.util.List;
 

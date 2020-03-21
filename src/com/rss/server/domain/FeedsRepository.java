@@ -1,6 +1,6 @@
-package com.rss.domain;
+package com.rss.server.domain;
 
-import com.rss.domain.models.Feed;
+import com.rss.shared.Feed;
 
 import java.util.List;
 
