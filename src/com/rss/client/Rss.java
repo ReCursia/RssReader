@@ -2,41 +2,42 @@ package com.rss.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.*;
 
 public class Rss implements EntryPoint {
 
     public void onModuleLoad() {
-        final Button button = new Button("Click me");
-        final Label label = new Label();
+        final Label eventLabel = new Label();
+        final TextBox textBox = new TextBox();
+        final Button submitButton = new Button("Submit");
+        submitButton.addClickHandler(event -> RssService.App.getInstance().addFeed(textBox.getText(), new AddFeedAsyncCallback(eventLabel)));
 
-        button.addClickHandler(event -> {
-            if (label.getText().equals("")) {
-                RssService.App.getInstance().getMessage("Hello, World!", new MyAsyncCallback(label));
-            } else {
-                label.setText("");
-            }
-        });
 
-        RootPanel.get("slot1").add(button);
-        RootPanel.get("slot2").add(label);
+        final HorizontalPanel horizontalPanel = new HorizontalPanel();
+        horizontalPanel.add(textBox);
+        horizontalPanel.add(submitButton);
+
+        final VerticalPanel verticalPanel = new VerticalPanel();
+        verticalPanel.add(eventLabel);
+        verticalPanel.add(horizontalPanel);
+        RootPanel.get("slot1").add(verticalPanel);
     }
 
-    private static class MyAsyncCallback implements AsyncCallback<String> {
-        private Label label;
+    private static class AddFeedAsyncCallback implements AsyncCallback<Void> {
+        final private Label label;
 
-        MyAsyncCallback(Label label) {
+        AddFeedAsyncCallback(Label label) {
             this.label = label;
         }
 
-        public void onSuccess(String result) {
-            label.getElement().setInnerHTML(result);
+        @Override
+        public void onFailure(Throwable caught) {
+            label.setText(caught.getLocalizedMessage());
         }
 
-        public void onFailure(Throwable throwable) {
-            label.setText("Failed to receive answer from server!");
+        @Override
+        public void onSuccess(Void result) {
+            label.setText("Успешно добавлено!"); //TODO add const
         }
     }
 }
