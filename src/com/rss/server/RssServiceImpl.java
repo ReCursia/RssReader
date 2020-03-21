@@ -13,11 +13,6 @@ public class RssServiceImpl extends RemoteServiceServlet implements RssService {
     private FeedsRepository feedsRepository = new FeedsRepositoryImpl();
 
     @Override
-    public String getMessage(String msg) {
-        return "Client said: \"" + msg + "\"<br>Server answered: \"Hi!\"";
-    }
-
-    @Override
     public List<Feed> getAllFeeds() {
         return feedsRepository.getAllFeeds();
     }

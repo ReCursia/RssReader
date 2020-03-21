@@ -10,8 +10,6 @@ import java.util.List;
 @RemoteServiceRelativePath("rssService")
 public interface RssService extends RemoteService {
 
-    String getMessage(String msg);
-
     List<Feed> getAllFeeds();
 
     void addFeed(String url);

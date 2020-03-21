@@ -10,5 +10,4 @@ public interface RssServiceAsync {
 
     void addFeed(String url, AsyncCallback<Void> async);
 
-    void getMessage(String msg, AsyncCallback<String> async);
 }
