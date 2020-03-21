@@ -1,30 +1,22 @@
 package com.rss.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>
- */
 public class Rss implements EntryPoint {
 
-    /**
-     * This is the entry point method.
-     */
     public void onModuleLoad() {
         final Button button = new Button("Click me");
         final Label label = new Label();
 
-        button.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent event) {
-                if (label.getText().equals("")) {
-                    RssService.App.getInstance().getMessage("Hello, World!", new MyAsyncCallback(label));
-                } else {
-                    label.setText("");
-                }
+        button.addClickHandler(event -> {
+            if (label.getText().equals("")) {
+                RssService.App.getInstance().getMessage("Hello, World!", new MyAsyncCallback(label));
+            } else {
+                label.setText("");
             }
         });
 
