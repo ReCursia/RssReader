@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Rss implements EntryPoint {
 
-    private static final int TABLE_SIZE = 100;
+    private static final int TABLE_SIZE = 200;
 
     public void onModuleLoad() {
         final Label eventLabel = new Label();
