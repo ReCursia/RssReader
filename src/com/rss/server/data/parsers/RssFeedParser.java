@@ -38,7 +38,7 @@ public class RssFeedParser {
         Feed feed = null;
         try {
             boolean isFeedHeader = true;
-            // Set header values intial to the empty string
+            // Set header values initial to the empty string
             String description = "";
             String title = "";
             String link = "";
@@ -98,11 +98,12 @@ public class RssFeedParser {
                             break;
                     }
                 } else if (event.isEndElement()) {
-                    if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
+                    if (event.asEndElement().getName().getLocalPart().equals(ITEM)) {
                         FeedItem message = new FeedItem();
                         message.setDescription(description);
                         message.setLink(link);
                         message.setTitle(title);
+                        message.setPubDate(pubdate);
                         feed.getFeedItems().add(message);
                         event = eventReader.nextEvent();
                     }

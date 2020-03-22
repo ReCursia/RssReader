@@ -13,6 +13,8 @@ import java.util.List;
 
 public class Rss implements EntryPoint {
 
+    private static final int TABLE_SIZE = 100;
+
     public void onModuleLoad() {
         final Label eventLabel = new Label();
         eventLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -28,7 +30,9 @@ public class Rss implements EntryPoint {
         final VerticalPanel verticalPanel = new VerticalPanel();
         verticalPanel.add(eventLabel);
         verticalPanel.add(horizontalPanel);
+        verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         final CellTable<FeedItem> table = createCellTable();
+        table.setVisible(false);
 
         final Button getNewsButton = new Button("Get news");
         getNewsButton.addClickHandler(event -> RssService.App.getInstance().getAllFeeds(new GetFeedsAsyncCallBack(eventLabel, table)));
@@ -40,6 +44,7 @@ public class Rss implements EntryPoint {
 
     private CellTable<FeedItem> createCellTable() {
         CellTable<FeedItem> table = new CellTable<>();
+        table.setVisibleRange(0, TABLE_SIZE);
         table.addColumn(new TextColumn<FeedItem>() {
             @Override
             public String getValue(FeedItem object) {
@@ -77,7 +82,13 @@ public class Rss implements EntryPoint {
 
         @Override
         public void onSuccess(List<Feed> feeds) {
-            label.setText("Новости получены!");
+            boolean hasItems = !feeds.isEmpty();
+            table.setVisible(hasItems);
+            if (hasItems) {
+                label.setText("Новости получены! Количество новостей: " + feeds.size());
+            } else {
+                label.setText("Новостей нет! Добавьте RSS-канал.");
+            }
 
             List<FeedItem> items = new ArrayList<>();
             for (Feed feed : feeds) {

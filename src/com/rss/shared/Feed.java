@@ -1,6 +1,7 @@
 package com.rss.shared;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Feed implements Serializable {
@@ -10,23 +11,7 @@ public class Feed implements Serializable {
     private String language;
     private String copyright;
     private String imageUrl;
-    private List<FeedItem> feedItems;
-
-    public Feed(String title,
-                String description,
-                String link,
-                String language,
-                String copyright,
-                String imageUrl,
-                List<FeedItem> feedItems) {
-        this.title = title;
-        this.description = description;
-        this.link = link;
-        this.language = language;
-        this.copyright = copyright;
-        this.imageUrl = imageUrl;
-        this.feedItems = feedItems;
-    }
+    private List<FeedItem> feedItems = new ArrayList<>();
 
     public Feed() {
     }
