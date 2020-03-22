@@ -85,7 +85,7 @@ public class Rss implements EntryPoint {
             boolean hasItems = !feeds.isEmpty();
             table.setVisible(hasItems);
             if (hasItems) {
-                label.setText("Новости получены! Количество новостей: " + feeds.size());
+                label.setText("Новости получены! Новостные ленты: " + feeds);
             } else {
                 label.setText("Новостей нет! Добавьте RSS-канал.");
             }
