@@ -10,6 +10,9 @@ import java.util.List;
 
 public class FeedsRepositoryImpl implements FeedsRepository {
 
+    /**
+     * File path to feed urls
+     */
     private static final String FILE_PATH = "D:\\Projects\\RssReader\\src\\com\\rss\\server\\data\\feed_urls.txt";
 
     @Override
@@ -23,6 +26,12 @@ public class FeedsRepositoryImpl implements FeedsRepository {
         return result;
     }
 
+    /**
+     * Getting feed from network
+     *
+     * @param url url of the feed
+     * @return feed
+     */
     private Feed getFeedFromNetwork(String url) {
         return new RssFeedParser(url).readFeed();
     }
@@ -41,10 +50,22 @@ public class FeedsRepositoryImpl implements FeedsRepository {
         writer.close();
     }
 
+    /**
+     * Check feed correctness
+     *
+     * @param feed feed
+     * @return true if correct, false otherwise
+     */
     private boolean isFeedCorrect(Feed feed) {
         return !feed.getFeedItems().isEmpty();
     }
 
+    /**
+     * Get feeds urls from file
+     *
+     * @return list of String
+     * @throws IOException error, if IO problems with file read
+     */
     private List<String> getFeedsUrls() throws IOException {
         List<String> result = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));

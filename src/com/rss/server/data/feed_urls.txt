@@ -1,3 +1,2 @@
-https://meduza.io/rss/all
+https://news.yandex.ru/koronavirus.rss
 https://news.yandex.ru/games.rss
-https://tjournal.ru/rss/all

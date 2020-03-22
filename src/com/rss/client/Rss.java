@@ -11,10 +11,19 @@ import com.rss.shared.FeedItem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The client size of the application
+ */
 public class Rss implements EntryPoint {
 
+    /**
+     * Defines amount of feed items in the table
+     */
     private static final int TABLE_SIZE = 200;
 
+    /**
+     * init page ui elements
+     */
     public void onModuleLoad() {
         final Label eventLabel = new Label();
         eventLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -42,6 +51,11 @@ public class Rss implements EntryPoint {
         RootPanel.get("slot1").add(verticalPanel);
     }
 
+    /**
+     * Function to create RSS-feed table
+     *
+     * @return table with columns
+     */
     private CellTable<FeedItem> createCellTable() {
         CellTable<FeedItem> table = new CellTable<>();
         table.setVisibleRange(0, TABLE_SIZE);
@@ -66,6 +80,9 @@ public class Rss implements EntryPoint {
         return table;
     }
 
+    /**
+     * Get RSS-news results callback
+     */
     private static class GetFeedsAsyncCallBack implements AsyncCallback<List<Feed>> {
         private final Label label;
         private final CellTable<FeedItem> table;
@@ -99,6 +116,9 @@ public class Rss implements EntryPoint {
         }
     }
 
+    /**
+     * Add new RSS-feed results callback
+     */
     private static class AddFeedAsyncCallback implements AsyncCallback<Void> {
         final private Label label;
 
