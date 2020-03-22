@@ -7,7 +7,7 @@ public class FeedItem implements Serializable {
     private String description;
     private String link;
     private String pubDate;
-    
+
     public FeedItem() {
     }
 

@@ -113,7 +113,7 @@ public class Rss implements EntryPoint {
 
         @Override
         public void onSuccess(Void result) {
-            label.setText("Успешно добавлено!"); //TODO add const
+            label.setText("Успешно добавлено!");
         }
     }
 }

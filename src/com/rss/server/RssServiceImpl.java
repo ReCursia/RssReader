@@ -4,6 +4,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.rss.client.RssService;
 import com.rss.server.data.repositories.FeedsRepositoryImpl;
 import com.rss.server.domain.FeedsRepository;
+import com.rss.server.exceptions.IncorrectFeedUrl;
 import com.rss.shared.Feed;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class RssServiceImpl extends RemoteServiceServlet implements RssService {
     }
 
     @Override
-    public void addFeed(String url) throws IOException {
+    public void addFeed(String url) throws IOException, IncorrectFeedUrl {
         feedsRepository.addFeed(url);
     }
 }
