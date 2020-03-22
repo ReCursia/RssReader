@@ -2,10 +2,13 @@ package com.rss.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.rss.shared.Feed;
+import com.rss.shared.FeedItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rss implements EntryPoint {
@@ -25,38 +28,63 @@ public class Rss implements EntryPoint {
         final VerticalPanel verticalPanel = new VerticalPanel();
         verticalPanel.add(eventLabel);
         verticalPanel.add(horizontalPanel);
-        final CellTable<Feed> table = createCellTable();
+        final CellTable<FeedItem> table = createCellTable();
+
         final Button getNewsButton = new Button("Get news");
-        submitButton.addClickHandler(event -> RssService.App.getInstance().getAllFeeds(new GetFeedsAsyncCallBack(eventLabel, table)));
-        verticalPanel.add(getNewsButton);
+        getNewsButton.addClickHandler(event -> RssService.App.getInstance().getAllFeeds(new GetFeedsAsyncCallBack(eventLabel, table)));
+        horizontalPanel.add(getNewsButton);
+
         verticalPanel.add(table);
         RootPanel.get("slot1").add(verticalPanel);
     }
 
-    private CellTable<Feed> createCellTable() {
-        CellTable<Feed> table = new CellTable<>();
-        //TODO implement
+    private CellTable<FeedItem> createCellTable() {
+        CellTable<FeedItem> table = new CellTable<>();
+        table.addColumn(new TextColumn<FeedItem>() {
+            @Override
+            public String getValue(FeedItem object) {
+                return object.getTitle();
+            }
+        }, "Title");
+        table.addColumn(new TextColumn<FeedItem>() {
+            @Override
+            public String getValue(FeedItem object) {
+                return object.getDescription();
+            }
+        }, "Description");
+        table.addColumn(new TextColumn<FeedItem>() {
+            @Override
+            public String getValue(FeedItem object) {
+                return object.getPubDate();
+            }
+        }, "Pub date");
+        return table;
     }
 
     private static class GetFeedsAsyncCallBack implements AsyncCallback<List<Feed>> {
         private final Label label;
-        private final CellTable<Feed> table;
+        private final CellTable<FeedItem> table;
 
-        GetFeedsAsyncCallBack(Label label, CellTable<Feed> table) {
+        GetFeedsAsyncCallBack(Label label, CellTable<FeedItem> table) {
             this.label = label;
             this.table = table;
         }
 
         @Override
         public void onFailure(Throwable caught) {
-            label.setText(caught.getLocalizedMessage());
+            label.setText("Произошла ошибка! Сообщение: " + caught.getLocalizedMessage());
         }
 
         @Override
-        public void onSuccess(List<Feed> result) {
+        public void onSuccess(List<Feed> feeds) {
             label.setText("Новости получены!");
-            table.setRowCount(result.size());
-            table.setRowData(0, result);
+
+            List<FeedItem> items = new ArrayList<>();
+            for (Feed feed : feeds) {
+                items.addAll(feed.getFeedItems());
+            }
+            table.setRowCount(items.size());
+            table.setRowData(0, items);
         }
     }
 

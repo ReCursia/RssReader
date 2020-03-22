@@ -5,14 +5,15 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.rss.shared.Feed;
 
+import java.io.IOException;
 import java.util.List;
 
 @RemoteServiceRelativePath("rssService")
 public interface RssService extends RemoteService {
 
-    List<Feed> getAllFeeds();
+    List<Feed> getAllFeeds() throws IOException;
 
-    void addFeed(String url);
+    void addFeed(String url) throws IOException;
 
     class App {
         private static RssServiceAsync ourInstance = GWT.create(RssService.class);
