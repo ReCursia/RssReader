@@ -108,7 +108,7 @@ public class Rss implements EntryPoint {
 
         @Override
         public void onFailure(Throwable caught) {
-            label.setText(caught.getLocalizedMessage());
+            label.setText(caught.getMessage());
         }
 
         @Override

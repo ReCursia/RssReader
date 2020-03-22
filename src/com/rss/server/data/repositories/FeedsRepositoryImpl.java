@@ -2,7 +2,6 @@ package com.rss.server.data.repositories;
 
 import com.rss.server.data.parsers.RssFeedParser;
 import com.rss.server.domain.FeedsRepository;
-import com.rss.server.exceptions.IncorrectFeedUrl;
 import com.rss.shared.Feed;
 
 import java.io.*;
@@ -29,12 +28,10 @@ public class FeedsRepositoryImpl implements FeedsRepository {
     }
 
     @Override
-    public void addFeed(String url) throws IOException, IncorrectFeedUrl {
+    public void addFeed(String url) throws IOException {
         Feed tryToGetFeed = getFeedFromNetwork(url);
         if (isFeedCorrect(tryToGetFeed)) {
             addUrlToFile(url);
-        } else {
-            throw new IncorrectFeedUrl("Неверный URL для ленты новостей, проверите вводимые данные!");
         }
     }
 
